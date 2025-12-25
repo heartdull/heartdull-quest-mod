@@ -23,6 +23,22 @@ cmake -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_HOME/build/cmake/android.toolchain.cm
 
 cmake --build . -- -j$(nproc || echo 4)
 
+# Try to copy the built .so to a predictable place
+SO_SRC=""
+# Common CMake outputs
+if [ -f "libheartdull.so" ]; then
+  SO_SRC="libheartdull.so"
+else
+  SO_SRC="$(find . -type f -name 'libheartdull.so' -print -quit || true)"
+fi
+
+if [ -n "$SO_SRC" ]; then
+  cp "$SO_SRC" ../build-libheartdull.so
+  echo "Copied built SO to ../build-libheartdull.so"
+else
+  echo "Warning: could not find libheartdull.so in build output."
+fi
+
 popd >/dev/null
 
-echo "Build finished. Output .so should be in ${BUILD_DIR}/libheartdull.so or under ${BUILD_DIR}/CMakeFiles/heartdull.dir/"
+echo "Build finished. Look for the library under build/ or the copied file build-libheartdull.so"
