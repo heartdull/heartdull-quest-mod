@@ -1,0 +1,11 @@
+{
+  "id": "heartdull",
+  "name": "heartdull",
+  "version": "1.0.0",
+  "author": "assholebee",
+  "description": "Barebones Heartdull native plugin for Beat Saber (Quest).",
+  "game": "Beat Saber",
+  "platform": "quest",
+  "entry": "lib/libheartdull.so",
+  "abi": "arm64-v8a"
+}
